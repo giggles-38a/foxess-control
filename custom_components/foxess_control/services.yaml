@@ -16,6 +16,35 @@ clear_overrides:
             - Backup
             - Feedin
 
+backup:
+  name: Backup
+  description: >-
+    Put the inverter into Backup mode for a set duration.
+  fields:
+    duration:
+      name: Duration
+      description: How long to remain in Backup mode.
+      required: true
+      selector:
+        duration:
+    start_time:
+        name: Start time
+        description: >-
+          Time of day to start the override. Defaults to now if not set.
+        selector:
+          time:
+    replace_conflicts:
+        name: Remove conflicting overrides instead of aborting
+        description: >-
+          If enabled, remove existing overrides that overlap with the
+          new Backup window instead of aborting.
+        required: true
+        default: false
+        selector:
+          boolean:
+
+
+
 feedin:
   name: Feed-in
   description: >-

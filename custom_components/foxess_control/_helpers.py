@@ -44,6 +44,7 @@ _LOGGER = logging.getLogger(__name__)
 # Service name constants
 # ---------------------------------------------------------------------------
 
+SERVICE_BACKUP = "backup"
 SERVICE_CLEAR_OVERRIDES = "clear_overrides"
 SERVICE_FEEDIN = "feedin"
 SERVICE_FORCE_CHARGE = "force_charge"
@@ -66,6 +67,7 @@ _MANAGED_WORK_MODES = frozenset(
         WorkMode.SELF_USE.value,
         WorkMode.FORCE_CHARGE.value,
         WorkMode.FORCE_DISCHARGE.value,
+        WorkMode.BACKUP.value,
         WorkMode.FEEDIN.value,
     }
 )
@@ -78,6 +80,14 @@ SCHEMA_CLEAR_OVERRIDES = vol.Schema(
     {
         vol.Optional("mode"): vol.In(VALID_MODES),
     }
+)
+
+SCHEMA_BACKUP = vol.Schema(
+    {
+        vol.Required("duration"): cv.time_period,
+        vol.Optional("start_time"): cv.time,
+    },
+    extra=vol.ALLOW_EXTRA,
 )
 
 SCHEMA_FORCE_CHARGE = vol.Schema(
